@@ -47,7 +47,7 @@ class ServerController extends BaseController
                 $serverModel = new ServerModel();
                 //read the req body
                 $entityBody = json_decode(file_get_contents('php://input'));
-                $arrServers = $serverModel->createServer($entityBody);
+                $serverModel->createServer($entityBody);
                 $responseData = "Successfully Created!";
             } catch (Error $e) {
                 $strErrorDesc = $e->getMessage().'Something went wrong! Please contact support.';
@@ -77,16 +77,18 @@ class ServerController extends BaseController
     {
         $strErrorDesc = '';
         $requestMethod = $_SERVER["REQUEST_METHOD"];
-        if (strtoupper($requestMethod) == 'POST') {
+        if (strtoupper($requestMethod) == 'PUT') {
             try {
                 $serverModel = new ServerModel();
                 $entityBody = json_decode(file_get_contents('php://input'));
-                $arrServers = $serverModel->updateServer($id, $entityBody);
+                $serverModel->updateServer($id, $entityBody);
                 $responseData = "Successfully Updated!";
             } catch (Error $e) {
                 $strErrorDesc = $e->getMessage().'Something went wrong! Please contact support.';
                 $strErrorHeader = 'HTTP/1.1 500 Internal Server Error';
             }
+        } else if (strtoupper($requestMethod) == 'OPTIONS') {
+            $responseData = '';
         } else {
             $strErrorDesc = 'Method not supported';
             $strErrorHeader = 'HTTP/1.1 422 Unprocessable Entity';
@@ -114,7 +116,7 @@ class ServerController extends BaseController
         if (strtoupper($requestMethod) == 'DELETE') {
             try {
                 $serverModel = new ServerModel();
-                $arrServers = $serverModel->deleteServer($id);
+                $serverModel->deleteServer($id);
                 $responseData = "Successfully Deleted!";
             } catch (Error $e) {
                 $strErrorDesc = $e->getMessage().'Something went wrong! Please contact support.';

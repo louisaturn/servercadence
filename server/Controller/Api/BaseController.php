@@ -42,12 +42,14 @@ protected function getQueryStringParams()
 */
     protected function sendOutput($data, $httpHeaders=array())
     {
+        // set headers
         header_remove('Set-Cookie');
         if (is_array($httpHeaders) && count($httpHeaders)) {
             foreach ($httpHeaders as $httpHeader) {
                 header($httpHeader);
             }
         }
+        // body of response
         echo $data;
         exit;
     }

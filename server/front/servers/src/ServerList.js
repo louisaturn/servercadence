@@ -9,17 +9,12 @@ import Server from "./Server"
 export default function ServerList(){
 
     const navigate = useNavigate()
+
     const handler = () => {
         navigate("/form")
     }
-    const [servers, setServers] = useState([]);
 
-    function onDelete(id){
-        let i = servers.findIndex((server) => server.id === id);
-        servers.splice(i,1);
-        console.log(servers);
-        setServers(servers);
-    }
+    const [servers, setServers] = useState([]);
 
     useEffect(() => {
         fetch(enviroment.baseUrl + "/list")

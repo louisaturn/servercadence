@@ -22,6 +22,7 @@ export default function ServerForm(props){
 
     let method = ''
     let url = ''
+
     switch(props.operation) {
         case 'create': {
             method = 'POST';
@@ -29,7 +30,7 @@ export default function ServerForm(props){
             break;
         }
         case 'update':{
-            method = 'POST';
+            method = 'PUT';
             url = enviroment.baseUrl + "/update/" + params["id"]
             break;
         }
@@ -41,8 +42,8 @@ export default function ServerForm(props){
     const navigate = useNavigate()
 
     const handleSubmit = (event) => {
-        console.log(server)
         event.preventDefault()
+
         fetch(url, {
             method: method,
             body: JSON.stringify(server)
@@ -59,13 +60,13 @@ export default function ServerForm(props){
     const handleChange = (event) => {
         const name = event.target.name;
         const value = event.target.value;
-        setServer(values => ({...values, [name]: value}))
+        setServer({...server, [name]: value})
     }
 
     const handleCheck = (event) => {
         const name = event.target.name;
         const value = event.target.checked;
-        setServer(values => ({...values, [name]: value}))
+        setServer({...server, [name]: value})
     }
 
     return (

@@ -11,13 +11,11 @@ import { enviroment } from "./enviroments/enviroments";
 export default function ServerDetails(){
 
     const navigate = useNavigate()
+
+    // retorna pares de chaves e valores das partes da url que são dinâmicas.
     const params = useParams();
 
     useEffect(() => {
-        if (!params["id"]) {
-            return
-        }
-
         fetch(enviroment.baseUrl + "/getById/" + params["id"])
         .then(response => response.json())
         .then(response => {setServer(response[0]); console.log(response)})
