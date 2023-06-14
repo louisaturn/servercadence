@@ -4,8 +4,11 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import { enviroment } from "./enviroments/enviroments";
+import { useNavigate } from "react-router-dom";
 
 export default function Server({ server, onDelete }) {
+
+    const navigate = useNavigate()
 
     function deleteServer(){
         fetch(enviroment.baseUrl + "/delete/" + server.id, 
@@ -27,12 +30,12 @@ export default function Server({ server, onDelete }) {
             ? "Web Process Running"
             : "Web Process Stopped"}
         </p>
-        <p>CPU Usage: {server.CPUUsage * 100 + "%"}</p>
-        <p>Memory Usage: {server.memoryUsage * 100 + "%"}</p>
+        <p>CPU Usage: {server.CPUUsage + "%"}</p>
+        <p>Memory Usage: {server.memoryUsage + "%"}</p>
       </CardContent>
       <CardActions>
-        <Button size="small">Details</Button>
-        <Button variant="outlined" color="primary">
+        <Button size="small" onClick={() => navigate("/details/" + server.id)}>Details</Button>
+        <Button variant="outlined" color="primary" onClick={() => navigate("/form/" + server.id)}>
           Update
         </Button>
         <Button variant="outlined" color="error" onClick={deleteServer}>

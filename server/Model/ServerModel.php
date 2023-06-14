@@ -76,6 +76,11 @@ public function updateServer($id, $instance)
     {
         return $this->executeStatement("DELETE FROM Server WHERE id = ?", ["i", [$id]]);
     }
+
+    public function getServerById($id)
+    {
+        return $this->executeStatement("SELECT * FROM Server WHERE id = ?", ["i", [$id]])->fetch_all(MYSQLI_ASSOC);
+    }
 }
 
 // ?: prevents query injection - 
